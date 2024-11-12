@@ -9,6 +9,6 @@ Jeu::Jeu()
 
 void Jeu::lancer()
 {
-    std::cout << "État initial du damier :\n";
+    std::cout << "DAMIER :\n\n\n";
     plateau.afficher_plateau(); // Affiche le damier une seule fois
 }
