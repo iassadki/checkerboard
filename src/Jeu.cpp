@@ -1,61 +1,14 @@
+#include "Jeu.h"
 #include <iostream>
-#include <fstream>
-#include "Joueur.cpp"
-#include "Plateau.cpp"
 
-using namespace std;
-
-class Jeu {
-private:
-    Joueur joueur_actuel;
-    Plateau plateau;
-
-public:
-    Jeu(Joueur joueur, Plateau p)
-    {
-        joueur_actuel = joueur;
-        plateau = p;
-    } 
-
-    void setJoueurActuel(Joueur joueur)
-    {
-        joueur_actuel = joueur;
-    }
-
-    void setPlateau(Plateau p)
-    {
-        plateau = p;
-    }
-};
-
-// Méthode demarrer
-void demarrer()
+Jeu::Jeu()
+    : joueur_blanc("Blanc"), joueur_noir("Noir"), joueur_actuel(&joueur_blanc), plateau()
 {
-    // On initialise le plateau
-    Plateau plateau = Plateau();
-    plateau.initialiser();
-
-    // On initialise les joueurs
-    Joueur joueur1 = Joueur("Joueur 1", "blanc");
-    Joueur joueur2 = Joueur("Joueur 2", "noir");
-
-    // On initialise le jeu
-    Jeu jeu = Jeu(joueur1, plateau);
-
-    // On commence le jeu
-    jeu.setJoueurActuel(joueur1);
-    plateau.afficher();
+    plateau.initialiser_plateau(); // Initialise le plateau avec les pièces
 }
 
-// Méthode terminer
-void terminer()
+void Jeu::lancer()
 {
-    cout << "Merci d'avoir joué !" << endl;
+    std::cout << "État initial du damier :\n";
+    plateau.afficher_plateau(); // Affiche le damier une seule fois
 }
-
-// Méthode changer_joueur
-void changer_joueur(Joueur joueur_actuel, Joueur joueur_suivant)
-{
-    joueur_actuel = joueur_suivant;
-}
-
