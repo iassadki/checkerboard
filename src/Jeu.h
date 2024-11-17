@@ -3,12 +3,14 @@
 
 #include "Plateau.h"
 #include "Joueur.h"
+#include <string>
 
 class Jeu
 {
 public:
     Jeu();
-    void lancer(); // Méthode pour lancer le jeu
+    void demarrer();
+    void terminer();
 
 private:
     Joueur joueur_blanc;
@@ -17,6 +19,9 @@ private:
     Plateau plateau;
 
     void changerJoueur();
+    bool partie_terminee() const;
+    void effectuer_tour();
+    bool saisir_deplacement(Position &depart, Position &arrivee);
 };
 
 #endif // JEU_H
