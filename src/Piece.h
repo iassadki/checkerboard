@@ -22,4 +22,4 @@ private:
     Position position;
 };
 
-#endif // PIECE_H
+#endif 

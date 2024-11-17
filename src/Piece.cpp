@@ -23,7 +23,6 @@ void Piece::setPosition(const Position &pos)
     position = pos;
 }
 
-// Implémentation du getter pour la couleur
 std::string Piece::getCouleur() const
 {
     return couleur;

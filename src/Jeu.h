@@ -24,4 +24,4 @@ private:
     bool saisir_deplacement(Position &depart, Position &arrivee);
 };
 
-#endif // JEU_H
+#endif 

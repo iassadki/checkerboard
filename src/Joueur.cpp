@@ -9,7 +9,6 @@ const std::vector<Piece> &Joueur::getPieces() const
 
 bool Joueur::effectuer_deplacement(const Position &depart, const Position &arrivee)
 {
-    // Cette méthode sera appelée par la classe Jeu
     return true;
 }
 

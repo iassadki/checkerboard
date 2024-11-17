@@ -15,4 +15,4 @@ private:
     int y;
 };
 
-#endif // POSITION_H
+#endif 

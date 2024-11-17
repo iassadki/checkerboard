@@ -10,6 +10,8 @@ Jeu::Jeu()
 void Jeu::demarrer()
 {
     std::cout << "Début de la partie de dames !\n";
+    std::cout << "Blancs : o \n";
+    std::cout << "Noirs  : x \n";
     plateau.initialiser_plateau();
 
     while (!partie_terminee())
@@ -44,7 +46,6 @@ void Jeu::effectuer_tour()
                 {
                     deplacement_valide = plateau.deplacer_piece(*piece, arrivee);
 
-                    // Vérifier s'il y a d'autres captures possibles après une capture
                     if (deplacement_valide && abs(arrivee.getX() - depart.getX()) == 2)
                     {
                         while (plateau.peut_capturer(*piece))
@@ -120,7 +121,6 @@ void Jeu::changerJoueur()
 
 bool Jeu::partie_terminee() const
 {
-    // Vérifier si un joueur n'a plus de pièces
     int pieces_blanches = 0;
     int pieces_noires = 0;
 
@@ -154,7 +154,6 @@ bool Jeu::partie_terminee() const
         return true;
     }
 
-    // Vérifier si le joueur actuel peut faire un mouvement
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
@@ -162,7 +161,6 @@ bool Jeu::partie_terminee() const
             const Piece *piece = plateau.getPieceAt(Position(i, j));
             if (piece && piece->getCouleur() == joueur_actuel->getCouleur())
             {
-                // Vérifier les mouvements possibles pour cette pièce
                 for (int di = -2; di <= 2; di++)
                 {
                     for (int dj = -2; dj <= 2; dj++)
@@ -172,7 +170,7 @@ bool Jeu::partie_terminee() const
                             Position arrivee(i + di, j + dj);
                             if (plateau.est_deplacement_valide(Position(i, j), arrivee, *joueur_actuel))
                             {
-                                return false; // Il existe au moins un mouvement valide
+                                return false; 
                             }
                         }
                     }
@@ -181,7 +179,6 @@ bool Jeu::partie_terminee() const
         }
     }
 
-    // Si on arrive ici, le joueur actuel ne peut pas bouger
     std::cout << "\nLe joueur " << (joueur_actuel == &joueur_blanc ? "Noir" : "Blanc") << " a gagné par blocage !\n";
     return true;
 }

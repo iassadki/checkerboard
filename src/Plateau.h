@@ -28,4 +28,4 @@ private:
     Position position_piece_capturee(const Position &depart, const Position &arrivee) const;
 };
 
-#endif // PLATEAU_H
+#endif 

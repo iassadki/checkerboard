@@ -40,7 +40,7 @@ void Plateau::afficher_plateau() const
         }
     }
 
-    // Placer les pièces
+    // Placement des pieces sur le damier
     for (const auto &piece : pieces)
     {
         int x = piece.getPosition().getX();
@@ -69,22 +69,18 @@ void Plateau::afficher_plateau() const
 
 bool Plateau::deplacer_piece(Piece &piece, const Position &nouvelle_pos)
 {
-    // Vérifier si la position d'arrivée est valide
     if (!est_position_valide(nouvelle_pos))
     {
         return false;
     }
 
-    // Vérifier si la case d'arrivée est vide
     if (getPieceAt(nouvelle_pos) != nullptr)
     {
         return false;
     }
 
-    // Sauvegarder l'ancienne position
     Position ancien_pos = piece.getPosition();
 
-    // Si c'est une capture
     if (abs(nouvelle_pos.getX() - ancien_pos.getX()) == 2)
     {
         Position pos_capturee = position_piece_capturee(ancien_pos, nouvelle_pos);
@@ -92,15 +88,12 @@ bool Plateau::deplacer_piece(Piece &piece, const Position &nouvelle_pos)
 
         if (piece_capturee && piece_capturee->getCouleur() != piece.getCouleur())
         {
-            // Retirer la pièce capturée
             retirer_piece(*piece_capturee);
         }
     }
 
-    // Mettre à jour la position de la pièce
     piece.setPosition(nouvelle_pos);
 
-    // Vérifier si la pièce devient une dame
     if (!piece.estReine())
     {
         if ((piece.getCouleur() == "Blanc" && nouvelle_pos.getX() == 7) ||
@@ -128,32 +121,27 @@ void Plateau::retirer_piece(Piece &piece)
 
 bool Plateau::est_deplacement_valide(const Position &depart, const Position &arrivee, const Joueur &joueur) const
 {
-    // Vérifier si les positions sont valides
     if (!est_position_valide(depart) || !est_position_valide(arrivee))
     {
         return false;
     }
 
-    // Obtenir la pièce à déplacer
     const Piece *piece = getPieceAt(depart);
     if (!piece)
     {
         return false;
     }
 
-    // Vérifier si la pièce appartient au joueur
     if (piece->getCouleur() != joueur.getCouleur())
     {
         return false;
     }
 
-    // Si le joueur peut capturer, il doit le faire
     if (joueur_peut_capturer(joueur))
     {
         return est_capture_valide(depart, arrivee, piece->getCouleur());
     }
 
-    // Sinon, vérifier si le déplacement simple est valide
     return est_deplacement_simple_valide(depart, arrivee, piece->getCouleur());
 }
 
@@ -193,7 +181,6 @@ bool Plateau::est_deplacement_simple_valide(const Position &depart, const Positi
     int dx = arrivee.getX() - depart.getX();
     int dy = arrivee.getY() - depart.getY();
 
-    // Vérifier le sens du déplacement selon la couleur
     if (!getPieceAt(depart)->estReine())
     {
         if (couleur == "Blanc" && dx <= 0)
@@ -202,7 +189,6 @@ bool Plateau::est_deplacement_simple_valide(const Position &depart, const Positi
             return false;
     }
 
-    // Vérifier si le déplacement est diagonal d'une case
     return abs(dx) == 1 && abs(dy) == 1;
 }
 
@@ -211,13 +197,11 @@ bool Plateau::est_capture_valide(const Position &depart, const Position &arrivee
     int dx = arrivee.getX() - depart.getX();
     int dy = arrivee.getY() - depart.getY();
 
-    // La capture doit être diagonale de deux cases
     if (abs(dx) != 2 || abs(dy) != 2)
     {
         return false;
     }
 
-    // Vérifier le sens du déplacement pour les pions non-dames
     if (!getPieceAt(depart)->estReine())
     {
         if (couleur == "Blanc" && dx <= 0)
@@ -226,7 +210,6 @@ bool Plateau::est_capture_valide(const Position &depart, const Position &arrivee
             return false;
     }
 
-    // Vérifier si une pièce adverse est présente sur la case intermédiaire
     Position pos_intermediaire(depart.getX() + dx / 2, depart.getY() + dy / 2);
     const Piece *piece_capturee = getPieceAt(pos_intermediaire);
 
@@ -250,7 +233,6 @@ std::vector<Position> Plateau::obtenir_captures_possibles(const Piece &piece) co
     std::vector<Position> captures;
     Position pos = piece.getPosition();
 
-    // Directions possibles pour les captures
     std::vector<std::pair<int, int>> directions;
     if (piece.estReine())
     {
@@ -265,7 +247,6 @@ std::vector<Position> Plateau::obtenir_captures_possibles(const Piece &piece) co
         directions = {{-2, 2}, {-2, -2}};
     }
 
-    // Vérifier chaque direction
     for (const auto &dir : directions)
     {
         Position nouvelle_pos(pos.getX() + dir.first, pos.getY() + dir.second);

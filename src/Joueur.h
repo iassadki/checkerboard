@@ -19,4 +19,4 @@ private:
     std::vector<Piece> pieces;
 };
 
-#endif // JOUEUR_H
+#endif 

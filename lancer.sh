@@ -1,2 +1,1 @@
-g++ src/*.cpp main.cpp -o jeu__de_dames
-./jeu__de_dames
+g++ src/*.cpp main.cpp -o check && ./check
